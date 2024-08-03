@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthenticationController extends Controller
 {
@@ -34,7 +35,13 @@ class AuthenticationController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $token = $user->createToken('LaravelPassportToken')->accessToken;
-            return response()->json(['token' => $token], 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'User successfully login!',
+                'user' => $user,
+                'token' => $token,
+            ], 200);
+//            return response()->json(['token' => $token], 200);
         } else {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
