@@ -8,4 +8,27 @@ use Illuminate\Database\Eloquent\Model;
 class Job extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'company_id',
+        'location',
+        'type',
+        'salary_min',
+        'salary_max',
+        'experience_level',
+        'industry',
+        'benefits',
+        'skills',
+    ];
+
+    protected $casts = [
+        'benefits' => 'array',
+        'skills' => 'array',
+    ];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }
