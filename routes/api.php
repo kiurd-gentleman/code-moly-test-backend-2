@@ -30,4 +30,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::resource('companies', CompanyController::class);
     Route::resource('jobs', JobController::class);
+
+    Route::get('category-index', [JobController::class, 'categoryIndex']);
+    Route::get('job-type-index', [JobController::class, 'jobTypeIndex']);
 });
