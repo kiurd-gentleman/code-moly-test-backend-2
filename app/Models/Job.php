@@ -21,6 +21,7 @@ class Job extends Model
         'industry',
         'benefits',
         'skills',
+        'description',
     ];
 
     protected $casts = [
@@ -31,5 +32,15 @@ class Job extends Model
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function jobType()
+    {
+        return $this->belongsTo(JobType::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

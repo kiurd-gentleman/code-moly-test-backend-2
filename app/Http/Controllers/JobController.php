@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Job;
 use App\Models\JobType;
+use App\Pipelines\JobSearchPipeline;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $jobs = Job::with('company')->paginate(10);
+        $jobs = JobSearchPipeline::apply(Job::query())->paginate(10);
         return response()->json($jobs);
     }
 
@@ -29,6 +30,7 @@ class JobController extends Controller
             'industry' => 'required|string|max:255',
             'benefits' => 'required|array',
             'skills' => 'required|array',
+            'description' => 'required|string',
         ]);
 
         $job = Job::create($request->all());
@@ -37,7 +39,7 @@ class JobController extends Controller
 
     public function show($id)
     {
-        $job = Job::with('company')->findOrFail($id);
+        $job = Job::with(['company', 'category','jobType'])->findOrFail($id);
         return response()->json($job);
     }
 
@@ -55,6 +57,7 @@ class JobController extends Controller
             'industry' => 'required|string|max:255',
             'benefits' => 'required|array',
             'skills' => 'required|array',
+            'description' => 'required|string',
         ]);
 
         $job = Job::findOrFail($id);

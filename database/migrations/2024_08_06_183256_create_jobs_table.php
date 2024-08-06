@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('industry');
             $table->json('benefits');
             $table->json('skills');
+            $table->longText('description');
+
+            $table->index(['company_id','category_id','job_type_id']);
             $table->timestamps();
         });
     }
