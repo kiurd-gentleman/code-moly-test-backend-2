@@ -2,6 +2,8 @@
 
 namespace App\Pipelines;
 
+use App\Filters\MaxSalaryFilter;
+use App\Filters\MinAndMaxSalaryFilter;
 use App\Filters\TitleFilter;
 use App\Filters\CompanyFilter;
 use App\Filters\JobTypeFilter;
@@ -23,6 +25,8 @@ class JobSearchPipeline
                 CategoryFilter::class,
                 BenefitFilter::class,
                 SkillsFilter::class,
+                MinAndMaxSalaryFilter::class,
+                MaxSalaryFilter::class
             ])
             ->thenReturn();
     }

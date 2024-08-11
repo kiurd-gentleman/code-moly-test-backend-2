@@ -8,11 +8,11 @@ class TitleFilter
 {
     public function handle($request, Closure $next)
     {
-        if (!request()->has('title')) {
+        if (!request()->has('search')) {
             return $next($request);
         }
 
         $builder = $next($request);
-        return $builder->where('title', 'like', '%' . request()->input('title') . '%');
+        return $builder->where('title', 'like', '%' . request()->input('search') . '%');
     }
 }

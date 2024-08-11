@@ -13,7 +13,6 @@ class CategoryFilter
         }
 
         $builder = $next($request);
-        return $builder->whereHas('company', function ($query) {
-            $query->where('name', 'like', '%' . request()->input('company') . '%');
-        });    }
+        return  $builder->where('category_id', request()->input('category_id'));
+    }
 }
